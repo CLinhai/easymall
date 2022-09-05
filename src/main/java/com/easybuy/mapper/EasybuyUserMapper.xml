@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easybuy.mapper.EasybuyUserMapper" >
+  <resultMap id="BaseResultMap" type="com.easybuy.entity.EasybuyUser" >
+    <id column="EU_USER_ID" property="euUserId" jdbcType="INTEGER" />
+    <result column="EU_USER_LOGINID" property="euUserLoginid" jdbcType="VARCHAR" />
+    <result column="EU_USER_NAME" property="euUserName" jdbcType="VARCHAR" />
+    <result column="EU_PASSWORD" property="euPassword" jdbcType="VARCHAR" />
+    <result column="EU_SEX" property="euSex" jdbcType="VARCHAR" />
+    <result column="EU_BIRTHDAY" property="euBirthday" jdbcType="VARCHAR" />
+    <result column="EU_IDENTITY_CODE" property="euIdentityCode" jdbcType="VARCHAR" />
+    <result column="EU_EMAIL" property="euEmail" jdbcType="VARCHAR" />
+    <result column="EU_MOBILE" property="euMobile" jdbcType="VARCHAR" />
+    <result column="EU_ADDRESS" property="euAddress" jdbcType="VARCHAR" />
+    <result column="EU_STATUS" property="euStatus" jdbcType="INTEGER" />
+    <result column="EU_FILEPATH" property="euFilepath" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from easybuy_user
+    where EU_USER_ID = #{euUserId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easybuy.entity.EasybuyUser" >
+    insert into easybuy_user (EU_USER_ID, EU_USER_LOGINID, EU_USER_NAME, 
+      EU_PASSWORD, EU_SEX, EU_BIRTHDAY, 
+      EU_IDENTITY_CODE, EU_EMAIL, EU_MOBILE, 
+      EU_ADDRESS, EU_STATUS, EU_FILEPATH
+      )
+    values (null , #{euUserLoginid,jdbcType=VARCHAR}, #{euUserName,jdbcType=VARCHAR},
+      #{euPassword,jdbcType=VARCHAR}, #{euSex,jdbcType=VARCHAR}, #{euBirthday,jdbcType=VARCHAR}, 
+      #{euIdentityCode,jdbcType=VARCHAR}, #{euEmail,jdbcType=VARCHAR}, #{euMobile,jdbcType=VARCHAR}, 
+      #{euAddress,jdbcType=VARCHAR}, 1, #{euFilepath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.easybuy.entity.EasybuyUser" >
+    update easybuy_user
+    set EU_USER_LOGINID = #{euUserLoginid,jdbcType=VARCHAR},
+      EU_USER_NAME = #{euUserName,jdbcType=VARCHAR},
+      EU_PASSWORD = #{euPassword,jdbcType=VARCHAR},
+      EU_SEX = #{euSex,jdbcType=VARCHAR},
+      EU_BIRTHDAY = #{euBirthday,jdbcType=VARCHAR},
+      EU_IDENTITY_CODE = #{euIdentityCode,jdbcType=VARCHAR},
+      EU_EMAIL = #{euEmail,jdbcType=VARCHAR},
+      EU_MOBILE = #{euMobile,jdbcType=VARCHAR},
+      EU_ADDRESS = #{euAddress,jdbcType=VARCHAR},
+    <if test="euFilepath!=null">
+      EU_FILEPATH = #{euFilepath,jdbcType=VARCHAR},
+    </if>
+    <if test="euFilepath==null">
+    </if>
+      EU_STATUS = 1
+    where EU_USER_ID = #{euUserId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select EU_USER_ID, EU_USER_LOGINID, EU_USER_NAME, EU_PASSWORD, EU_SEX, EU_BIRTHDAY, 
+    EU_IDENTITY_CODE, EU_EMAIL, EU_MOBILE, EU_ADDRESS, EU_STATUS, EU_FILEPATH
+    from easybuy_user
+    where EU_USER_ID = #{euUserId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select EU_USER_ID, EU_USER_LOGINID, EU_USER_NAME, EU_PASSWORD, EU_SEX, EU_BIRTHDAY, 
+    EU_IDENTITY_CODE, EU_EMAIL, EU_MOBILE, EU_ADDRESS, EU_STATUS, EU_FILEPATH
+    from easybuy_user where  EU_STATUS = 1
+  </select>
+  <select id="checkLoginOrRegister" resultMap="BaseResultMap" >
+    select EU_USER_ID, EU_USER_LOGINID, EU_USER_NAME, EU_PASSWORD, EU_SEX, EU_BIRTHDAY,
+    EU_IDENTITY_CODE, EU_EMAIL, EU_MOBILE, EU_ADDRESS, EU_STATUS, EU_FILEPATH
+    from easybuy_user where EU_USER_LOGINID = #{euUserLoginid,jdbcType=VARCHAR}
+  </select>
+</mapper>

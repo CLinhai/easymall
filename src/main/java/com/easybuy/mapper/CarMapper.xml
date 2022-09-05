@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easybuy.mapper.CarMapper" >
+  <resultMap id="BaseResultMap" type="com.easybuy.entity.Car" >
+    <id column="car_id" property="carId" jdbcType="INTEGER" />
+    <result column="car_pfilename" property="carPfilename" jdbcType="VARCHAR" />
+    <result column="car_pname" property="carPname" jdbcType="VARCHAR" />
+    <result column="car_quantity" property="carQuantity" jdbcType="INTEGER" />
+    <result column="car_pstock" property="carPstock" jdbcType="INTEGER" />
+    <result column="car_pid" property="carPid" jdbcType="INTEGER" />
+    <result column="car_uid" property="carUid" jdbcType="INTEGER" />
+    <result column="car_valid" property="carValid" jdbcType="INTEGER" />
+    <result column="car_pprice" property="carPprice" jdbcType="DOUBLE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from car
+    where car_id = #{carId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easybuy.entity.Car" >
+    insert into car (car_id, car_pfilename, car_pname, 
+      car_quantity, car_pstock, car_pid, 
+      car_uid, car_valid, car_pprice
+      )
+    values (null , #{carPfilename,jdbcType=VARCHAR}, #{carPname,jdbcType=VARCHAR},
+      #{carQuantity,jdbcType=INTEGER}, #{carPstock,jdbcType=INTEGER}, #{carPid,jdbcType=INTEGER}, 
+      #{carUid,jdbcType=INTEGER}, #{carValid,jdbcType=INTEGER}, #{carPprice,jdbcType=DOUBLE}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.easybuy.entity.Car" >
+    update car
+    set car_pfilename = #{carPfilename,jdbcType=VARCHAR},
+      car_pname = #{carPname,jdbcType=VARCHAR},
+      car_quantity = #{carQuantity,jdbcType=INTEGER},
+      car_pstock = #{carPstock,jdbcType=INTEGER},
+      car_pid = #{carPid,jdbcType=INTEGER},
+      car_uid = #{carUid,jdbcType=INTEGER},
+      car_valid = #{carValid,jdbcType=INTEGER},
+      car_pprice = #{carPprice,jdbcType=DOUBLE}
+    where car_id = #{carId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select car_id, car_pfilename, car_pname, car_quantity, car_pstock, car_pid, car_uid, 
+    car_valid, car_pprice
+    from car
+    where car_id = #{carId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select car_id, car_pfilename, car_pname, car_quantity, car_pstock, car_pid, car_uid, 
+    car_valid, car_pprice
+    from car
+  </select>
+  <select id="selectByUid" resultMap="BaseResultMap" >
+    select car_id, car_pfilename, car_pname, car_quantity, car_pstock, car_pid, car_uid,
+    car_valid, car_pprice
+    from car
+    where  car_uid = #{carUid,jdbcType=INTEGER}
+    and  car_valid = 1 order by car_id desc
+  </select>
+  <select id="selectByUidAndPid" resultMap="BaseResultMap" >
+    select car_id, car_pfilename, car_pname, car_quantity, car_pstock, car_pid, car_uid,
+    car_valid, car_pprice
+    from car
+    where  car_uid = #{carUid,jdbcType=INTEGER}
+    and car_pid = #{carPid,jdbcType=INTEGER}
+    and  car_valid = 1 order by car_id desc
+  </select>
+
+  <update id="updateCount"  >
+    update car
+    set
+      car_quantity = #{carQuantity,jdbcType=INTEGER}
+
+    where car_id = #{carId,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteByIds" parameterType="java.lang.String" >
+    delete from car
+    where car_id in
+    <foreach collection="array" item="ids" open="(" separator=","
+             close=")">
+      #{ids}
+    </foreach>
+  </delete>
+
+  <select id="selectByIds" resultMap="BaseResultMap" >
+    select car_id, car_pfilename, car_pname, car_quantity, car_pstock, car_pid, car_uid,
+    car_valid, car_pprice
+    from car
+    where car_id in
+    <foreach collection="array" item="ids" open="(" separator=","
+             close=")">
+      #{ids}
+    </foreach>
+
+  </select>
+</mapper>

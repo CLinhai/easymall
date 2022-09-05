@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easybuy.mapper.EasybuyNewsMapper" >
+  <resultMap id="BaseResultMap" type="com.easybuy.entity.EasybuyNews" >
+    <id column="EN_ID" property="enId" jdbcType="INTEGER" />
+    <result column="EN_TITLE" property="enTitle" jdbcType="VARCHAR" />
+    <result column="EN_CONTENT" property="enContent" jdbcType="VARCHAR" />
+    <result column="EN_CREATE_TIME" property="enCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from easybuy_news
+    where EN_ID = #{enId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easybuy.entity.EasybuyNews" >
+    insert into easybuy_news (EN_ID, EN_TITLE, EN_CONTENT, 
+      EN_CREATE_TIME)
+    values (null, #{enTitle,jdbcType=VARCHAR}, #{enContent,jdbcType=VARCHAR},
+     now())
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.easybuy.entity.EasybuyNews" >
+    update easybuy_news
+    set EN_TITLE = #{enTitle,jdbcType=VARCHAR},
+      EN_CONTENT = #{enContent,jdbcType=VARCHAR}
+    where EN_ID = #{enId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select EN_ID, EN_TITLE, EN_CONTENT, EN_CREATE_TIME
+    from easybuy_news
+    where EN_ID = #{enId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select EN_ID, EN_TITLE, EN_CONTENT, EN_CREATE_TIME
+    from easybuy_news
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer" >
+    select count(EN_ID)
+    from easybuy_news
+  </select>
+  <select id="listByPage" resultMap="BaseResultMap" >
+    select EN_ID, EN_TITLE, EN_CONTENT, EN_CREATE_TIME
+    from easybuy_news
+    order by EN_CREATE_TIME desc
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+</mapper>

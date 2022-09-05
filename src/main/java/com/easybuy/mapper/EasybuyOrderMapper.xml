@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easybuy.mapper.EasybuyOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.easybuy.entity.EasybuyOrder" >
+    <id column="EO_ID" property="eoId" jdbcType="INTEGER" />
+    <result column="EO_USER_ID" property="eoUserId" jdbcType="INTEGER" />
+    <result column="EO_USER_NAME" property="eoUserName" jdbcType="VARCHAR" />
+    <result column="EO_USER_ADDRESS" property="eoUserAddress" jdbcType="VARCHAR" />
+    <result column="EO_CREATE_TIME" property="eoCreateTime" jdbcType="TIMESTAMP" />
+    <result column="EO_COST" property="eoCost" jdbcType="DOUBLE" />
+    <result column="EO_STATUS" property="eoStatus" jdbcType="INTEGER" />
+    <result column="EO_TYPE" property="eoType" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from easybuy_order
+    where EO_ID = #{eoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easybuy.entity.EasybuyOrder" useGeneratedKeys="true" keyColumn="EO_ID" keyProperty="eoId">
+    insert into easybuy_order (EO_ID, EO_USER_ID, EO_USER_NAME, 
+      EO_USER_ADDRESS, EO_CREATE_TIME, EO_COST, 
+      EO_STATUS, EO_TYPE)
+    values (null, #{eoUserId,jdbcType=INTEGER}, #{eoUserName,jdbcType=VARCHAR},
+      #{eoUserAddress,jdbcType=VARCHAR}, now(), #{eoCost,jdbcType=DOUBLE},
+      1, 1)
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.easybuy.entity.EasybuyOrder" >
+    update easybuy_order
+    set
+      EO_USER_NAME = #{eoUserName,jdbcType=VARCHAR},
+      EO_USER_ADDRESS = #{eoUserAddress,jdbcType=VARCHAR},
+      EO_COST = #{eoCost,jdbcType=DOUBLE},
+      EO_STATUS = #{eoStatus,jdbcType=INTEGER},
+      EO_TYPE = 1
+    where EO_ID = #{eoId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select EO_ID, EO_USER_ID, EO_USER_NAME, EO_USER_ADDRESS, EO_CREATE_TIME, EO_COST, 
+    EO_STATUS, EO_TYPE
+    from easybuy_order
+    where EO_ID = #{eoId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select EO_ID, EO_USER_ID, EO_USER_NAME, EO_USER_ADDRESS, EO_CREATE_TIME, EO_COST, 
+    EO_STATUS, EO_TYPE
+    from easybuy_order
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer" >
+    select count(EO_ID)
+    from easybuy_order
+  </select>
+  <select id="listByPage" resultMap="BaseResultMap" >
+    select EO_ID, EO_USER_ID, EO_USER_NAME, EO_USER_ADDRESS, EO_CREATE_TIME, EO_COST,
+    EO_STATUS, EO_TYPE
+    from easybuy_order
+    order by EO_CREATE_TIME desc
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="getOrderByForm" resultMap="BaseResultMap"  >
+    select EO_ID, EO_USER_ID, EO_USER_NAME, EO_USER_ADDRESS, EO_CREATE_TIME, EO_COST,
+    EO_STATUS, EO_TYPE
+    from easybuy_order
+    where EO_ID = #{eoId,jdbcType=INTEGER} and  EO_USER_NAME = #{eoUserName,jdbcType=VARCHAR}
+  </select>
+</mapper>

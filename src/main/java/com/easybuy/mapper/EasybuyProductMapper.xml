@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easybuy.mapper.EasybuyProductMapper" >
+  <resultMap id="BaseResultMap" type="com.easybuy.entity.EasybuyProduct" >
+    <id column="EP_ID" property="epId" jdbcType="INTEGER" />
+    <result column="EP_NAME" property="epName" jdbcType="VARCHAR" />
+    <result column="EP_DESCRIPTION" property="epDescription" jdbcType="VARCHAR" />
+    <result column="EP_PRICE" property="epPrice" jdbcType="DOUBLE" />
+    <result column="EP_STOCK" property="epStock" jdbcType="INTEGER" />
+    <result column="EPC_ID" property="epcId" jdbcType="INTEGER" />
+    <result column="EPC_CHILD_ID" property="epcChildId" jdbcType="INTEGER" />
+    <result column="EP_FILE_NAME" property="epFileName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from easybuy_product
+    where EP_ID = #{epId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easybuy.entity.EasybuyProduct" >
+    insert into easybuy_product (EP_ID, EP_NAME, EP_DESCRIPTION, 
+      EP_PRICE, EP_STOCK, EPC_ID, 
+      EPC_CHILD_ID, EP_FILE_NAME)
+    values (null, #{epName,jdbcType=VARCHAR}, #{epDescription,jdbcType=VARCHAR},
+      #{epPrice,jdbcType=DOUBLE}, #{epStock,jdbcType=INTEGER}, #{epcId,jdbcType=INTEGER}, 
+      #{epcChildId,jdbcType=INTEGER}, #{epFileName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.easybuy.entity.EasybuyProduct" >
+    update easybuy_product
+    set EP_NAME = #{epName,jdbcType=VARCHAR},
+      EP_DESCRIPTION = #{epDescription,jdbcType=VARCHAR},
+      EP_PRICE = #{epPrice,jdbcType=DOUBLE},
+      EP_STOCK = #{epStock,jdbcType=INTEGER},
+      EPC_ID = #{epcId,jdbcType=INTEGER},
+      <if test="epFileName!=null">
+        EP_FILE_NAME = #{epFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="epFileName==null">
+      </if>
+      EPC_CHILD_ID = #{epcChildId,jdbcType=INTEGER}
+    where EP_ID = #{epId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select EP_ID, EP_NAME, EP_DESCRIPTION, EP_PRICE, EP_STOCK, EPC_ID, EPC_CHILD_ID, 
+    EP_FILE_NAME
+    from easybuy_product
+    where EP_ID = #{epId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select EP_ID, EP_NAME, EP_DESCRIPTION, EP_PRICE, EP_STOCK, EPC_ID, EPC_CHILD_ID, 
+    EP_FILE_NAME
+    from easybuy_product
+  </select>
+  <select id="listByPage" resultMap="BaseResultMap" >
+    select EP_ID, EP_NAME, EP_DESCRIPTION, EP_PRICE, EP_STOCK, EPC_ID, EPC_CHILD_ID,
+    EP_FILE_NAME
+    from easybuy_product
+    <where>
+      <if test="epcChildId!=null">
+        EPC_CHILD_ID = #{epcChildId,jdbcType=INTEGER}
+      </if>
+    </where>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(EP_ID) from easybuy_product
+    where  EPC_CHILD_ID = #{epcChildId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+    select count(EP_ID) from easybuy_product
+  </select>
+
+  <update id="updateStock"  >
+    update easybuy_product
+    set
+    EP_STOCK = EP_STOCK-#{num}
+    where EP_ID = #{epId,jdbcType=INTEGER}
+  </update>
+</mapper>

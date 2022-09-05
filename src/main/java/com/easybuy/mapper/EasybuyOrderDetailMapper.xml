@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easybuy.mapper.EasybuyOrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.easybuy.entity.EasybuyOrderDetail" >
+    <id column="EOD_ID" property="eodId" jdbcType="INTEGER" />
+    <result column="EO_ID" property="eoId" jdbcType="INTEGER" />
+    <result column="EP_ID" property="epId" jdbcType="INTEGER" />
+    <result column="EOD_QUANTITY" property="eodQuantity" jdbcType="INTEGER" />
+    <result column="EOD_COST" property="eodCost" jdbcType="DOUBLE" />
+    <result column="EOD_Subtotal" property="eodSubtotal" jdbcType="DOUBLE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from easybuy_order_detail
+    where EOD_ID = #{eodId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easybuy.entity.EasybuyOrderDetail" >
+    insert into easybuy_order_detail (EOD_ID, EO_ID, EP_ID, 
+      EOD_QUANTITY, EOD_COST, EOD_Subtotal
+      )
+    values (null, #{eoId,jdbcType=INTEGER}, #{epId,jdbcType=INTEGER},
+      #{eodQuantity,jdbcType=INTEGER}, #{eodCost,jdbcType=DOUBLE}, #{eodSubtotal,jdbcType=DOUBLE}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.easybuy.entity.EasybuyOrderDetail" >
+    update easybuy_order_detail
+    set EO_ID = #{eoId,jdbcType=INTEGER},
+      EP_ID = #{epId,jdbcType=INTEGER},
+      EOD_QUANTITY = #{eodQuantity,jdbcType=INTEGER},
+      EOD_COST = #{eodCost,jdbcType=DOUBLE},
+      EOD_Subtotal = #{eodSubtotal,jdbcType=DOUBLE}
+    where EOD_ID = #{eodId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select EOD_ID, EO_ID, EP_ID, EOD_QUANTITY, EOD_COST, EOD_Subtotal
+    from easybuy_order_detail
+    where EOD_ID = #{eodId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select EOD_ID, EO_ID, EP_ID, EOD_QUANTITY, EOD_COST, EOD_Subtotal
+    from easybuy_order_detail
+  </select>
+
+  <delete id="deleteByForeign" parameterType="java.lang.Integer" >
+    delete from easybuy_order_detail
+    where EO_ID = #{eoId,jdbcType=INTEGER}
+  </delete>
+</mapper>

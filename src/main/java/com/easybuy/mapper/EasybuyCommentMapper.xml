@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easybuy.mapper.EasybuyCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.easybuy.entity.EasybuyComment" >
+    <id column="EC_ID" property="ecId" jdbcType="INTEGER" />
+    <result column="EC_REPLY" property="ecReply" jdbcType="VARCHAR" />
+    <result column="EC_CONTENT" property="ecContent" jdbcType="VARCHAR" />
+    <result column="EC_CREATE_TIME" property="ecCreateTime" jdbcType="TIMESTAMP" />
+    <result column="EC_REPLY_TIME" property="ecReplyTime" jdbcType="TIMESTAMP" />
+    <result column="EC_NICK_ID" property="ecNickId" jdbcType="INTEGER" />
+    <result column="EC_NICK_NAME" property="ecNickName" jdbcType="VARCHAR" />
+    <result column="EC_PRODUCT_ID" property="ecProductId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from easybuy_comment
+    where EC_ID = #{ecId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easybuy.entity.EasybuyComment" >
+    insert into easybuy_comment (EC_ID, EC_REPLY, EC_CONTENT, 
+      EC_CREATE_TIME, EC_REPLY_TIME, EC_NICK_ID, 
+      EC_NICK_NAME, EC_PRODUCT_ID)
+    values (#{ecId,jdbcType=INTEGER}, #{ecReply,jdbcType=VARCHAR}, #{ecContent,jdbcType=VARCHAR}, 
+      #{ecCreateTime,jdbcType=TIMESTAMP}, #{ecReplyTime,jdbcType=TIMESTAMP}, #{ecNickId,jdbcType=INTEGER}, 
+      #{ecNickName,jdbcType=VARCHAR}, #{ecProductId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.easybuy.entity.EasybuyComment" >
+    update easybuy_comment
+    set EC_REPLY = #{ecReply,jdbcType=VARCHAR},
+      EC_CONTENT = #{ecContent,jdbcType=VARCHAR},
+      EC_CREATE_TIME = #{ecCreateTime,jdbcType=TIMESTAMP},
+      EC_REPLY_TIME = #{ecReplyTime,jdbcType=TIMESTAMP},
+      EC_NICK_ID = #{ecNickId,jdbcType=INTEGER},
+      EC_NICK_NAME = #{ecNickName,jdbcType=VARCHAR},
+      EC_PRODUCT_ID = #{ecProductId,jdbcType=INTEGER}
+    where EC_ID = #{ecId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select EC_ID, EC_REPLY, EC_CONTENT, EC_CREATE_TIME, EC_REPLY_TIME, EC_NICK_ID, EC_NICK_NAME, 
+    EC_PRODUCT_ID
+    from easybuy_comment
+    where EC_ID = #{ecId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select EC_ID, EC_REPLY, EC_CONTENT, EC_CREATE_TIME, EC_REPLY_TIME, EC_NICK_ID, EC_NICK_NAME, 
+    EC_PRODUCT_ID
+    from easybuy_comment
+  </select>
+</mapper>
