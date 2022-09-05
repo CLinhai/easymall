@@ -79,7 +79,7 @@
     <div class="clear"></div>
 </div>
 <div id="footer">
-    Copyright &copy; 2010 All Rights Reserved. 京ICP证1000001号
+    Copyright &copy; 2022 All Rights Reserved. 京ICP证1000001号
 </div>
 <c:if test="${param.type eq 'updateOrder'}">
     <script>setTimeout(function () {

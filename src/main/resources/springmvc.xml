@@ -19,10 +19,10 @@
     <mvc:annotation-driven/>
     <!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能，需要重新设置spring-mvc-3.0.xsd -->
     <mvc:resources location="/scripts/" mapping="/scripts/**"/>
-    <mvc:resources location="/js/" mapping="/js/**"/>
+<!--    <mvc:resources location="/js/" mapping="/js/**"/>-->
     <mvc:resources location="/css/" mapping="/css/**"/>
     <mvc:resources location="/images/" mapping="/images/**"/>
-    <mvc:resources location="/img/" mapping="/img/**"/>
+<!--    <mvc:resources location="/img/" mapping="/img/**"/>-->
     <mvc:annotation-driven/>
     <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"

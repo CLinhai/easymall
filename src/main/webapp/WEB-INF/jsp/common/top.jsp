@@ -25,18 +25,18 @@
             <a href="${pageContext.request.contextPath}/admin/getCart.do?uid=${loginuser.euUserId}" class="shopping">购物车</a>
             <a href="">${empty loginuser.euUserName?loginuser.euUserLoginid:loginuser.euUserName}</a>
 <%--            <a href="guestbook.html">留言</a>--%>
-            <a href="exit.do">退出</a>
+            <a href="/exit.do">退出</a>
         </c:if>
         <c:if test="${loginuser.euStatus=='0'}">
             <a href="">${empty loginuser.euUserName?loginuser.euUserLoginid:loginuser.euUserName}</a>
             <a href="admin/go.do?url=admin/adminIndex">进入后台</a>
-            <a href="exit.do">退出</a>
+            <a href="/exit.do">退出</a>
         </c:if>
 
     </div>
     <div class="navbar">
         <ul class="clearfix">
-            <li class="current"><a href="index.do">首页</a></li>
+            <li class="current"><a href="/index.do">首页</a></li>
             <li><a href="#">图书</a></li>
             <li><a href="#">百货</a></li>
             <li><a href="#">品牌</a></li>

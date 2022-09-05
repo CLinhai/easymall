@@ -27,7 +27,7 @@
                     <th>头像</th>
                     <th>姓名</th>
                     <th>性别</th>
-                    <th>Email</th>
+<%--                    <th>Email</th>--%>
                     <th>手机</th>
                     <th>操作</th>
                 </tr>
@@ -37,7 +37,7 @@
                         <td class="w1 c"><img src="../${user.euFilepath}" height="50px" width="50px" alt="未设置"></td>
                         <td class="w1 c">${user.euUserName}</td>
                         <td class="w2 c">${user.euSex}</td>
-                        <td class="w4 c">${user.euEmail}</td>
+<%--                        <td class="w4 c">${user.euEmail}</td>--%>
                         <td class="w4 c">${user.euMobile}</td>
                         <td class="w1 c"><a href="getUser.do?euUserId=${user.euUserId}">修改</a> <a href="javascript:DeleteUser(${user.euUserId});">删除</a></td>
                     </tr>
@@ -48,7 +48,7 @@
     <div class="clear"></div>
 </div>
 <div id="footer">
-    Copyright &copy; 2010 All Rights Reserved. 京ICP证1000001号
+    Copyright &copy; 2022 All Rights Reserved. 京ICP证1000001号
 </div>
 <c:if test="${param.adminType eq 'updateUser'}">
     <script> setTimeout(function () {alert("${param.i eq '1'?'修改用户成功':'修改用户失败'}")},800)</script>

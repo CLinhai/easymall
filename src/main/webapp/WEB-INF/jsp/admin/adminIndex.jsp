@@ -47,7 +47,7 @@
     <div class="clear"></div>
 </div>
 <div id="footer">
-    Copyright &copy; 2010 All Rights Reserved. 京ICP证1000001号
+    Copyright &copy; 2022 All Rights Reserved. 京ICP证1000001号
 </div>
 </body>
 </html>

@@ -93,7 +93,7 @@
     <div class="clear"></div>
 </div>
 <div id="footer">
-    Copyright &copy; 2010  All Rights Reserved. 京ICP证1000001号
+    Copyright &copy; 2022  All Rights Reserved. 京ICP证1000001号
 </div>
 
 </body>
@@ -121,10 +121,9 @@
                 success: function (response) {
 
                     if (response=="1") {
-                        alert("账号已存在")
-                    }else{
-
                         $("#updateForm").submit()
+                    }else{
+                         alert("账号不存在");
                     }
                 }
             });
