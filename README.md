@@ -1,2 +1,2 @@
 # easybuy
-a SSM project for studying
+三人小组SSM简易商城项目
