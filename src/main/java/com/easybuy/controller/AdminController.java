@@ -78,6 +78,7 @@ private CartService cartService;
         if (!filetmp.isDirectory()) {
             filetmp.mkdirs();
         }
+
         // 获取上传文件项名称,做文件名称随机处理避免上传相同文件名覆盖
         String uuid = UUID.randomUUID().toString().replace("-", "");
         String originalFilename = upload.getOriginalFilename();
@@ -86,8 +87,14 @@ private CartService cartService;
             String fileName = uuid + "_" + upload.getOriginalFilename();
             // 这里是upload.getOriginalFilename()而不是upload.getName()后者只是得到文件项的名字
             upload.transferTo(new File(serverpath + path, fileName));
-
             user.setEuFilepath(path+fileName);
+         /*   String realPath = request.getServletContext().getRealPath("/upload");
+            //对路径中upload文件夹是否存在
+            File filePath = new File(realPath);
+            if (!filePath.exists()) {
+                filePath.mkdir();
+            }
+            upload.transferTo(new File(realPath,originalFilename));*/
         } else {
             user.setEuFilepath(null);
         }

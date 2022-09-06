@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gq
-  Date: 2020/7/3
-  Time: 14:19
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -80,7 +74,7 @@
                     </tr>
                     <tr>
                         <td class="field">头像：</td>
-                        <td><input type="file" class="text" name="euFilepath" /></td>
+                        <td><input type="file" class="text" name="euFilepath" value="${user.euFilepath}" /></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -113,21 +107,19 @@
         if (euUserLoginid==""||euPassword==""){
             alert("请输入账户和密码")
         }else{
-            $.ajax({
+          /*  $.ajax({
                 type: "post",
                 url: "../checkRegister.do",
                 contentType: "application/json", //必须这样写
                 data:JSON.stringify({"euUserLoginid":euUserLoginid}),//data是要提交是json字符串
-                success: function (response) {
-
-                    if (response=="1") {
+                success: function (response) {*/
+                    // if (response=="1") {
                         $("#updateForm").submit()
-                    }else{
+                   /* }else{
                          alert("账号不存在");
-                    }
-                }
-            });
-
+                    }*/
+        /*        }
+            });*/
         }
 
 

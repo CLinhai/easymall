@@ -147,7 +147,7 @@ public class UserController {
 
     }
 
-    @RequestMapping("/checkRegister")
+    /*@RequestMapping("/checkRegister")
     public @ResponseBody String checkRegister(@RequestBody String body) {
         System.out.println(body);
         //获取json中的值
@@ -160,7 +160,7 @@ public class UserController {
         } else {
             return "1";
         }
-    }
+    }*/
 
     @RequestMapping("/register")
     public String register(EasybuyUser user,HttpSession session){
@@ -244,7 +244,7 @@ public class UserController {
         return "product";
     }
 
-    @RequestMapping("/showLL")
+   /* @RequestMapping("/showLL")
     public  String showLL(HttpServletResponse response,HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         String str="";
@@ -267,7 +267,7 @@ public class UserController {
         }
         return null;
 
-    }
+    }*/
 
     @RequestMapping("/getNews")
     public String getNews(int enId,Model model){
