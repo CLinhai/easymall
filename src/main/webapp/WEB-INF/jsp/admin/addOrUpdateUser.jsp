@@ -74,7 +74,7 @@
                     </tr>
                     <tr>
                         <td class="field">头像：</td>
-                        <td><input type="file" class="text" name="euFilepath" value="${user.euFilepath}" /></td>
+                        <td><input type="file" class="text" name="euFilepath1" value="${user.euFilepath}" /></td>
                     </tr>
                     <tr>
                         <td></td>

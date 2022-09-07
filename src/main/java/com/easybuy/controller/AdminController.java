@@ -3,6 +3,7 @@ package com.easybuy.controller;
 import com.easybuy.entity.*;
 import com.easybuy.service.AdminService;
 import com.easybuy.service.CartService;
+import com.easybuy.utils.UploadImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,56 +51,14 @@ private CartService cartService;
     }
 
     @RequestMapping("/addOrUpdateUser")
-    public String addOrUpdateUser(HttpServletRequest request, @RequestParam("euFilepath") MultipartFile upload) throws IOException {
+    public String addOrUpdateUser(EasybuyUser user,HttpServletRequest request,
+                                  @RequestParam("euFilepath1") MultipartFile upload) throws IOException {
         int i = 0;
-        EasybuyUser user=new EasybuyUser();
-
-        String euUserId = request.getParameter("euUserId");
-        if (euUserId != null && !euUserId.equals("")) {
-            user.setEuUserId(Integer.valueOf(euUserId));
-        }
-       user.setEuUserLoginid(request.getParameter("euUserLoginid"));
-       user.setEuUserName(request.getParameter("euUserName"));
-       user.setEuPassword(request.getParameter("euPassword"));
-       user.setEuSex(request.getParameter("euSex"));
-       user.setEuBirthday(request.getParameter("euBirthday"));
-       user.setEuMobile(request.getParameter("euMobile"));
-       user.setEuAddress(request.getParameter("euAddress"));
-
+        System.out.println(user);
         String serverpath = request.getServletContext().getRealPath("/");
-        System.out.println(serverpath);
-        String path = "upload/images/";
-        String pathtmp = "upload/imagestmp/";
-        File file = new File(serverpath + path);
-        File filetmp = new File(serverpath + pathtmp);
-        if (!file.isDirectory()) {
-            file.mkdirs();
-        }
-        if (!filetmp.isDirectory()) {
-            filetmp.mkdirs();
-        }
-
-        // 获取上传文件项名称,做文件名称随机处理避免上传相同文件名覆盖
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String originalFilename = upload.getOriginalFilename();
-
-        if (originalFilename != null && !originalFilename.equals("")) {
-            String fileName = uuid + "_" + upload.getOriginalFilename();
-            // 这里是upload.getOriginalFilename()而不是upload.getName()后者只是得到文件项的名字
-            upload.transferTo(new File(serverpath + path, fileName));
-            user.setEuFilepath(path+fileName);
-         /*   String realPath = request.getServletContext().getRealPath("/upload");
-            //对路径中upload文件夹是否存在
-            File filePath = new File(realPath);
-            if (!filePath.exists()) {
-                filePath.mkdir();
-            }
-            upload.transferTo(new File(realPath,originalFilename));*/
-        } else {
-            user.setEuFilepath(null);
-        }
+        //上传图片工具类
+        UploadImage.uploadImage(serverpath, user, upload);
         i = this.adminService.addOrUpdateUser(user);
-
         String type = request.getParameter("type");
         return "redirect:getUserList.do?adminType=" + (type.equals("addUser") ? "addUser" : "updateUser") + "&i=" + i;
     }
@@ -171,43 +130,11 @@ private CartService cartService;
     }
 
     @RequestMapping("/addOrUpdateProduct")
-    public String addOrUpdateProduct(HttpServletRequest request,@RequestParam("epFileName") MultipartFile upload) throws IOException {
+    public String addOrUpdateProduct(EasybuyProduct product,HttpServletRequest request,@RequestParam("epFileName1") MultipartFile upload) throws IOException {
         int i = 0;
-        EasybuyProduct product = new EasybuyProduct();
-        String epId = request.getParameter("epId");
-        if (epId != null && !epId.equals("")) {
-            product.setEpId(Integer.valueOf(epId));
-        }
-        product.setEpName(request.getParameter("epName"));
-        product.setEpDescription(request.getParameter("epDescription"));
-        product.setEpPrice(Double.parseDouble(request.getParameter("epPrice")));
-        product.setEpStock(Integer.parseInt(request.getParameter("epStock")));
-        product.setEpcChildId(Integer.parseInt(request.getParameter("epcChildId")));
-
         String serverpath = request.getServletContext().getRealPath("/");
-        System.out.println(serverpath);
-        String path = "upload/images/";
-        String pathtmp = "upload/imagestmp/";
-        File file = new File(serverpath + path);
-        File filetmp = new File(serverpath + pathtmp);
-        if (!file.isDirectory()) {
-            file.mkdirs();
-        }
-        if (!filetmp.isDirectory()) {
-            filetmp.mkdirs();
-        }
-        // 获取上传文件项名称,做文件名称随机处理避免上传相同文件名覆盖
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String originalFilename = upload.getOriginalFilename();
-
-        if (originalFilename != null && !originalFilename.equals("")) {
-            String fileName = uuid + "_" + upload.getOriginalFilename();
-            // 这里是upload.getOriginalFilename()而不是upload.getName()后者只是得到文件项的名字
-            upload.transferTo(new File(serverpath + path, fileName));
-            product.setEpFileName(path + fileName);
-        }
+        UploadImage.uploadImage(serverpath, product, upload);
         i = this.adminService.addOrUpdateProduct(product);
-
         String type = request.getParameter("type");
         return "redirect:getProductList.do?type=" + ("updateProduct".equals(type) ? "updateProduct" : "addProduct")+ "&i=" + i;
 

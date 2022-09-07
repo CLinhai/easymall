@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <td class="field">*商品图片：</td>
-                        <td><input type="file" class="text" name="epFileName"/><span></span></td>
+                        <td><input type="file" class="text" name="epFileName1"/><span></span></td>
                     </tr>
                     <tr>
                         <td class="field">*商品价格：</td>
