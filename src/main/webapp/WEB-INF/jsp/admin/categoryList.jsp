@@ -41,7 +41,9 @@
                                     <td class="childClass">${childcategory.epcName}</td>
                                     <td class="w1 c">
                                         <a href="getCategory.do?epcId=${childcategory.epcId}">修改</a>
-                                        <a href="javascript:DeleteCategory(${childcategory.epcId});">删除</a>
+                                        <c:if test="${map[childcategory.epcId].productCount<=0}">
+                                            <a href="javascript:DeleteCategory(${childcategory.epcId});">删除</a>
+                                        </c:if>
                                     </td>
                                 </tr>
                             </c:if>
