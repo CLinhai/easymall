@@ -48,7 +48,7 @@ public class UserController {
     @RequestMapping("/index")
     public String index(Model model, HttpSession session) {
         Map<String, Object> map = this.userService.index();
-//        model.addAttribute("map", map);
+        model.addAttribute("map", map);
         session.setAttribute("map", map);
         return "index";
     }

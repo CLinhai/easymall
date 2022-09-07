@@ -15,12 +15,12 @@ public class AdminInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		EasybuyUser m = (EasybuyUser) session.getAttribute("loginuser");
-
-		if (session == null || m == null) { // 用户未登录
-			response.sendRedirect("../go.do?url=login&msg=error1");
-		}
+//		HttpSession session = request.getSession();
+//		EasybuyUser m = (EasybuyUser) session.getAttribute("loginuser");
+//
+//		if (session == null || m == null) { // 用户未登录
+//			response.sendRedirect("../go.do?url=login&msg=error1");
+//		}
 		return true;
 	}
 
